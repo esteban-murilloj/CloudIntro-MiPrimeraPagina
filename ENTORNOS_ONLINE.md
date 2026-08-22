@@ -20,6 +20,9 @@ funcionando. Todas las opciones corren **en el navegador**.
 **Mi recomendación:** Codespaces como vía principal, Cloud Shell como respaldo.
 Anuncia **ambas** el primer día: siempre hay alguien a quien le falla una.
 
+Para llegar al repo, los estudiantes pueden hacer **fork** o **Use this template**.
+Ambas sirven con Codespaces — la comparación está [más abajo](#-fork-o-use-this-template).
+
 ---
 
 ## 🥇 Opción 1 — GitHub Codespaces (recomendada)
@@ -67,6 +70,45 @@ sin permisos ni invitaciones de por medio.
 ```
 https://github.com/johanpina/CloudIntro/generate
 ```
+
+---
+
+## 🍴 ¿Fork o "Use this template"?
+
+Las dos funcionan y en ambas el estudiante usa **su propia cuota** de Codespaces
+(este es un repo personal, así que el consumo se factura a su cuenta, no a la tuya).
+La diferencia está en otra parte:
+
+| | Fork | Use this template |
+|---|:---:|:---:|
+| Codespaces con su propia cuota | ✅ | ✅ |
+| Reciben tus correcciones al lab | ✅ botón **Sync fork** | ❌ copia sin vínculo |
+| Ves quién hizo el lab | ✅ lista de forks | ❌ no hay rastro |
+| Pueden entregarte por Pull Request | ✅ | ❌ |
+| Puede ser privado | ❌ **nunca** | ✅ |
+| Empezar de cero otra vez | ❌ 1 fork por cuenta | ✅ ilimitado |
+
+### 👉 Para este lab: usa **fork**
+
+Tres razones concretas:
+
+1. **Lista de asistencia gratis.** En `.../CloudIntro/forks` ves quién lo hizo.
+2. **Corriges una vez y les llega a todos.** Si arreglas un typo o mejoras el
+   Dockerfile, ellos hacen clic en **Sync fork** y lo tienen. Con template
+   tendrías que pedirles copiar cambios a mano.
+3. **Entregas por Pull Request**, si quieres enseñarles ese flujo más adelante.
+
+**Enlace directo:** `https://github.com/johanpina/CloudIntro/fork`
+
+### ⚠️ Los dos gotchas del fork
+
+- **El fork de un repo público es público, siempre.** GitHub no permite
+  cambiarle la visibilidad porque comparte la red del repositorio original.
+  Si el trabajo es **calificable** y no quieres que se copien, usa
+  **Use this template** con visibilidad privada.
+- **Solo se puede forkear una vez por cuenta.** Si un estudiante destroza su
+  copia y quiere empezar limpio, primero tiene que **borrar el fork**
+  (Settings → Delete this repository) y volver a forkear.
 
 ---
 
