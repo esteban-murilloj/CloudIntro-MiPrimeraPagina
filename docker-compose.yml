@@ -1,0 +1,9 @@
+# docker compose = describir el "qué quiero correr" en vez de memorizar flags.
+services:
+  landing:
+    build: .                    # construye usando el Dockerfile de esta carpeta
+    image: cloudintro-landing:1.0
+    container_name: cloudintro
+    ports:
+      - "8080:80"               # <puerto en tu máquina>:<puerto dentro del contenedor>
+    restart: unless-stopped     # si se cae, Docker lo levanta solo

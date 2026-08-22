@@ -1,0 +1,47 @@
+{
+  // ─────────────────────────────────────────────────────────────
+  //  Dev Container = "el entorno de desarrollo también es código".
+  //  GitHub Codespaces lee este archivo y te entrega, en el navegador,
+  //  un VS Code completo con Docker ya instalado y funcionando.
+  //  Mismo estándar que usan VS Code local y otros IDEs en la nube.
+  // ─────────────────────────────────────────────────────────────
+
+  "name": "CloudIntro · Lab 01",
+
+  // Imagen base del entorno de trabajo (Ubuntu con herramientas comunes).
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+
+  // Docker DENTRO del entorno: esto es lo que permite correr el lab.
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+
+  // Puerto donde vive la landing. Codespaces le da una URL pública temporal.
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Landing page",
+      "onAutoForward": "openPreview"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  // Se ejecuta una sola vez, al crear el entorno: deja la imagen lista.
+  "postCreateCommand": "docker --version && echo '✅ Entorno listo. Corre: docker compose up --build'",
+
+  "remoteUser": "vscode"
+}

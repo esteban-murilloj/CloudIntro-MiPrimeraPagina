@@ -1,0 +1,9 @@
+# Todo lo que NO debe entrar a la imagen.
+# Menos archivos = imagen más liviana, build más rápido y menos riesgo de filtrar secretos.
+.git
+.gitignore
+*.md
+.env
+.DS_Store
+node_modules
+.devcontainer

@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Entorno
+.env
+.env.local
+
+# Dependencias (por si el lab crece)
+node_modules/
+
+# Material docente: no se publica (contiene respuestas del lab)
+GUIA_INSTRUCTOR.md

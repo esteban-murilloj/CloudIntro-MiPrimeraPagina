@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cloud Intro · Lab 01</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="nav">
+    <span class="logo">☁️ CloudIntro</span>
+    <nav>
+      <a href="#problema">El problema</a>
+      <a href="#docker">¿Qué es Docker?</a>
+      <a href="#conceptos">Conceptos</a>
+      <a href="#ciclo">Ciclo de vida</a>
+      <a href="#comandos">Comandos</a>
+      <a href="#modelos">Nube</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ══════════ HERO ══════════ -->
+    <section class="hero">
+      <p class="kicker">Laboratorio 01 · Fundamentos de Cloud Computing</p>
+      <h1>Tu primera aplicación<br /><span class="grad">contenerizada</span></h1>
+      <p class="sub">
+        Esta página no vive en tu computador: vive dentro de un <b>contenedor</b>.
+        Un paquete aislado, portable y reproducible que corre igual en tu laptop
+        que en un servidor a 8.000 km. Baja y descubre cómo funciona.
+      </p>
+      <div class="cta">
+        <code>docker compose up --build</code>
+      </div>
+      <p class="meta" id="meta">Servido por Nginx dentro de un contenedor Docker</p>
+      <div class="scroll-hint">↓</div>
+    </section>
+
+    <!-- ══════════ EL PROBLEMA ══════════ -->
+    <section id="problema" class="block">
+      <span class="num">01</span>
+      <h2>El problema que Docker vino a resolver</h2>
+      <p class="lead">
+        Tu código funciona perfecto en tu máquina. Lo mandas a un compañero
+        y explota. Lo subes al servidor y explota distinto. ¿Por qué?
+      </p>
+
+      <div class="problem-grid">
+        <div class="prob">
+          <div class="ico">🧩</div>
+          <h4>Dependencias distintas</h4>
+          <p>Tú tienes Node 20, tu compañero Node 16, el servidor Node 14. Cada uno se comporta diferente.</p>
+        </div>
+        <div class="prob">
+          <div class="ico">🖥️</div>
+          <h4>Sistemas distintos</h4>
+          <p>Tú en macOS, tu compañero en Windows, el servidor en Ubuntu. Rutas, permisos y librerías cambian.</p>
+        </div>
+        <div class="prob">
+          <div class="ico">⚙️</div>
+          <h4>Configuración distinta</h4>
+          <p>Variables de entorno, puertos ocupados, versiones del servidor web. Nada está documentado.</p>
+        </div>
+      </div>
+
+      <div class="quote-bad">
+        <span>💬</span>
+        <div>
+          <b>"Pero en mi máquina sí funciona"</b>
+          <p>La frase más cara de la industria del software. Docker la elimina: si funciona
+          en el contenedor, funciona en cualquier lado donde ese contenedor pueda correr.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ QUÉ ES DOCKER ══════════ -->
+    <section id="docker" class="block">
+      <span class="num">02</span>
+      <h2>¿Qué es Docker?</h2>
+
+      <div class="definition">
+        <p>
+          <b>Docker</b> es una plataforma que empaqueta una aplicación junto con
+          <b>todo lo que necesita para ejecutarse</b> —sistema operativo base, librerías,
+          dependencias y configuración— dentro de una unidad estándar y portable
+          llamada <b>contenedor</b>.
+        </p>
+      </div>
+
+      <p class="lead">
+        La analogía viene del transporte marítimo. Antes, cada mercancía se cargaba
+        de forma distinta: sacos, barriles, cajas sueltas. Al estandarizar el
+        <b>contenedor metálico</b>, dejó de importar qué llevaba adentro: cualquier
+        barco, grúa, tren o camión del mundo podía moverlo igual.
+      </p>
+      <p class="lead">
+        Docker hizo lo mismo con el software. <b>No importa qué hay adentro</b>
+        —Python, Java, una web estática como esta—: cualquier máquina con Docker
+        lo ejecuta de la misma manera.
+      </p>
+
+      <h3 class="sub-h">Contenedor vs. Máquina Virtual</h3>
+      <p class="lead">
+        Ambos aíslan aplicaciones, pero a costos muy distintos. La diferencia está
+        en <b>qué comparten con la máquina anfitriona</b>.
+      </p>
+
+      <div class="stacks">
+        <div class="stack">
+          <p class="stack-title">Máquina Virtual</p>
+          <div class="layer app">App A</div>
+          <div class="layer lib">Librerías</div>
+          <div class="layer os">SO invitado completo <span>~1 GB</span></div>
+          <div class="layer hyp">Hipervisor</div>
+          <div class="layer host">SO anfitrión</div>
+          <div class="layer hw">Hardware</div>
+        </div>
+        <div class="stack win">
+          <p class="stack-title">Contenedor</p>
+          <div class="layer app">App A</div>
+          <div class="layer lib">Librerías mínimas <span>~75 MB</span></div>
+          <div class="layer hyp">Motor de Docker</div>
+          <div class="layer host">SO anfitrión <span>kernel compartido</span></div>
+          <div class="layer hw">Hardware</div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th></th><th>Máquina Virtual</th><th>Contenedor</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Tamaño típico</td><td>1 – 10 GB</td><td class="good">10 – 300 MB</td></tr>
+            <tr><td>Tiempo de arranque</td><td>Minutos</td><td class="good">Milisegundos</td></tr>
+            <tr><td>Sistema operativo</td><td>Uno completo por VM</td><td class="good">Comparte el kernel del host</td></tr>
+            <tr><td>Cuántos por servidor</td><td>Decenas</td><td class="good">Cientos o miles</td></tr>
+            <tr><td>Nivel de aislamiento</td><td class="good">Total (hardware virtual)</td><td>Alto (a nivel de proceso)</td></tr>
+            <tr><td>Ideal para</td><td>Correr otro SO completo</td><td class="good">Empaquetar y desplegar apps</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <b>No compiten, se complementan.</b> En la nube tus contenedores casi siempre
+        corren <i>encima</i> de máquinas virtuales. Lo que cambia no es el hardware:
+        es la <b>unidad que despliegas</b>.
+      </div>
+    </section>
+
+    <!-- ══════════ CONCEPTOS ══════════ -->
+    <section id="conceptos" class="block">
+      <span class="num">03</span>
+      <h2>Los 6 conceptos que necesitas</h2>
+      <p class="lead">Si entiendes estos seis, entiendes Docker. Todo lo demás son detalles.</p>
+
+      <div class="concepts">
+        <article class="card">
+          <div class="ico">📄</div>
+          <h3>Dockerfile</h3>
+          <p class="what">La <b>receta</b>. Un archivo de texto con los pasos para construir tu imagen.</p>
+          <p class="ex">Ejemplo: "parte de Nginx, copia estos archivos, escucha en el puerto 80".</p>
+        </article>
+
+        <article class="card">
+          <div class="ico">📦</div>
+          <h3>Imagen</h3>
+          <p class="what">El <b>paquete congelado</b> que resulta de cocinar la receta. Es <b>inmutable</b>: se construye una vez y nunca cambia.</p>
+          <p class="ex">Como una foto o un ISO. Si quieres cambiarla, construyes otra.</p>
+        </article>
+
+        <article class="card">
+          <div class="ico">⚙️</div>
+          <h3>Contenedor</h3>
+          <p class="what">La imagen <b>en ejecución</b>. Un proceso aislado y <b>desechable</b>: se crea, corre y se destruye.</p>
+          <p class="ex">De una misma imagen puedes lanzar 1 o 500 contenedores idénticos.</p>
+        </article>
+
+        <article class="card">
+          <div class="ico">🏛️</div>
+          <h3>Registry</h3>
+          <p class="what">El <b>repositorio</b> de imágenes. Subes con <code>push</code>, descargas con <code>pull</code>.</p>
+          <p class="ex">Docker Hub, Artifact Registry, ECR. Es "el GitHub de las imágenes".</p>
+        </article>
+
+        <article class="card">
+          <div class="ico">🔌</div>
+          <h3>Puerto</h3>
+          <p class="what">El <b>puente</b> entre tu máquina y el contenedor, que por defecto está cerrado al mundo.</p>
+          <p class="ex"><code>-p 8080:80</code> → tu 8080 entra al 80 interno del contenedor.</p>
+        </article>
+
+        <article class="card">
+          <div class="ico">💾</div>
+          <h3>Volumen</h3>
+          <p class="what">Almacenamiento que <b>sobrevive</b> al contenedor. Sin él, todo lo escrito adentro se pierde.</p>
+          <p class="ex">Imprescindible para bases de datos. Esta página no lo necesita.</p>
+        </article>
+      </div>
+
+      <div class="keyidea">
+        <b>La confusión #1 de la clase:</b> imagen ≠ contenedor.
+        La <b>imagen</b> es la receta de arepas; el <b>contenedor</b> es la arepa.
+        Con una receta haces 50 arepas. Si se te quema una, botas la arepa — no la receta.
+      </div>
+    </section>
+
+    <!-- ══════════ CICLO DE VIDA ══════════ -->
+    <section id="ciclo" class="block">
+      <span class="num">04</span>
+      <h2>El ciclo de vida completo</h2>
+      <p class="lead">De un archivo de texto a una app corriendo en otro continente, en cuatro pasos.</p>
+
+      <div class="flow">
+        <div class="node">
+          <span class="n-ico">📄</span>
+          <b>Dockerfile</b>
+          <small>lo escribes tú</small>
+        </div>
+        <div class="arrow"><code>build</code></div>
+        <div class="node">
+          <span class="n-ico">📦</span>
+          <b>Imagen</b>
+          <small>inmutable, versionada</small>
+        </div>
+        <div class="arrow"><code>run</code></div>
+        <div class="node accent">
+          <span class="n-ico">⚙️</span>
+          <b>Contenedor</b>
+          <small>tu app corriendo</small>
+        </div>
+      </div>
+
+      <div class="flow second">
+        <div class="node">
+          <span class="n-ico">📦</span>
+          <b>Imagen</b>
+          <small>la misma de arriba</small>
+        </div>
+        <div class="arrow"><code>push</code></div>
+        <div class="node">
+          <span class="n-ico">🏛️</span>
+          <b>Registry</b>
+          <small>Docker Hub, ECR…</small>
+        </div>
+        <div class="arrow"><code>pull + run</code></div>
+        <div class="node accent">
+          <span class="n-ico">☁️</span>
+          <b>La nube</b>
+          <small>mismo artefacto, otro servidor</small>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>Aquí está la magia de la nube:</b> el artefacto que despliegas es
+        <i>exactamente</i> el que probaste en tu laptop. No se recompila, no se
+        reconfigura, no se reinstala nada. <b>Mismos bytes.</b>
+      </div>
+
+      <h3 class="sub-h">Estados de un contenedor</h3>
+      <div class="states">
+        <div class="state"><b>created</b><small>existe, nunca arrancó</small></div>
+        <span class="sep">→</span>
+        <div class="state on"><b>running</b><small>ejecutándose</small></div>
+        <span class="sep">→</span>
+        <div class="state"><b>stopped</b><small>detenido, aún existe</small></div>
+        <span class="sep">→</span>
+        <div class="state off"><b>removed</b><small>borrado del disco</small></div>
+      </div>
+      <p class="lead small-note">
+        Ojo: <code>docker stop</code> solo pausa. El contenedor sigue ocupando espacio
+        hasta que hagas <code>docker rm</code>. Por eso <code>docker ps</code> no los
+        muestra pero <code>docker ps -a</code> sí.
+      </p>
+    </section>
+
+    <!-- ══════════ DOCKERFILE EXPLICADO ══════════ -->
+    <section id="dockerfile" class="block">
+      <span class="num">05</span>
+      <h2>El Dockerfile de esta página, línea por línea</h2>
+      <p class="lead">Este es el archivo real que construyó lo que estás viendo ahora mismo.</p>
+
+      <div class="code-explain">
+        <div class="row">
+          <code class="line"><span class="kw">FROM</span> nginx:1.27-alpine</code>
+          <p>Imagen <b>base</b>. Heredamos un Linux mínimo con Nginx ya instalado. Nunca partas de cero.</p>
+        </div>
+        <div class="row">
+          <code class="line"><span class="kw">COPY</span> app/ /usr/share/nginx/html/</code>
+          <p><b>Mete tus archivos dentro</b> de la imagen. Desde aquí, la página vive en el contenedor.</p>
+        </div>
+        <div class="row">
+          <code class="line"><span class="kw">EXPOSE</span> 80</code>
+          <p><b>Documenta</b> que el contenedor escucha en el 80. No publica nada por sí solo — eso lo hace <code>-p</code>.</p>
+        </div>
+        <div class="row">
+          <code class="line"><span class="kw">HEALTHCHECK</span> CMD wget … /health</code>
+          <p>Cómo saber si está <b>sano</b>. En producción, esto decide si te mandan tráfico o te reinician.</p>
+        </div>
+        <div class="row">
+          <code class="line"><span class="kw">CMD</span> ["nginx", "-g", "daemon off;"]</code>
+          <p>El <b>proceso principal</b>. Si muere, el contenedor muere. Debe correr en primer plano.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>Cada instrucción crea una capa</b> que Docker guarda en caché. Si solo cambias
+        el HTML, no vuelve a descargar Nginx: reutiliza las capas anteriores. Por eso el
+        segundo <code>build</code> tarda segundos y no minutos.
+      </div>
+    </section>
+
+    <!-- ══════════ COMANDOS ══════════ -->
+    <section id="comandos" class="block">
+      <span class="num">06</span>
+      <h2>Comandos básicos</h2>
+      <p class="lead">Haz clic en cualquier comando para copiarlo. Con estos ~15 sobrevives el 90% del tiempo.</p>
+
+      <h3 class="sub-h">🔨 Construir</h3>
+      <div class="cmds">
+        <div class="cmd" data-copy="docker build -t mi-app:1.0 ."><code>docker build -t mi-app:1.0 .</code><p>Construye la imagen desde el Dockerfile. El <code>.</code> final es la carpeta de contexto.</p></div>
+        <div class="cmd" data-copy="docker images"><code>docker images</code><p>Lista las imágenes que tienes en disco.</p></div>
+        <div class="cmd" data-copy="docker pull nginx:alpine"><code>docker pull nginx:alpine</code><p>Descarga una imagen del registry sin ejecutarla.</p></div>
+      </div>
+
+      <h3 class="sub-h">▶️ Ejecutar</h3>
+      <div class="cmds">
+        <div class="cmd" data-copy="docker run -d --name web -p 8080:80 mi-app:1.0"><code>docker run -d --name web -p 8080:80 mi-app:1.0</code><p>Crea y arranca un contenedor. <code>-d</code> en segundo plano, <code>-p</code> publica el puerto.</p></div>
+        <div class="cmd" data-copy="docker ps"><code>docker ps</code><p>Muestra los contenedores <b>corriendo</b>.</p></div>
+        <div class="cmd" data-copy="docker ps -a"><code>docker ps -a</code><p>Muestra <b>todos</b>, incluidos los detenidos. Útil cuando "desapareció".</p></div>
+        <div class="cmd" data-copy="docker stop web"><code>docker stop web</code><p>Detiene el contenedor (sigue existiendo).</p></div>
+        <div class="cmd" data-copy="docker start web"><code>docker start web</code><p>Lo vuelve a arrancar sin recrearlo.</p></div>
+        <div class="cmd" data-copy="docker restart web"><code>docker restart web</code><p>Stop + start. Lo devuelve al estado original de la imagen.</p></div>
+      </div>
+
+      <h3 class="sub-h">🔍 Inspeccionar y depurar</h3>
+      <div class="cmds">
+        <div class="cmd" data-copy="docker logs web"><code>docker logs web</code><p><b>Tu primer paso cuando algo falla.</b> Muestra la salida del contenedor.</p></div>
+        <div class="cmd" data-copy="docker logs -f web"><code>docker logs -f web</code><p>Sigue los logs en vivo, como <code>tail -f</code>.</p></div>
+        <div class="cmd" data-copy="docker exec -it web sh"><code>docker exec -it web sh</code><p><b>Entra al contenedor</b> con una terminal. Explora con <code>ls</code>, <code>cat</code>; sal con <code>exit</code>.</p></div>
+        <div class="cmd" data-copy="docker stats"><code>docker stats</code><p>CPU y memoria en tiempo real de cada contenedor.</p></div>
+      </div>
+
+      <h3 class="sub-h">🧹 Limpiar</h3>
+      <div class="cmds">
+        <div class="cmd" data-copy="docker rm web"><code>docker rm web</code><p>Borra el contenedor (debe estar detenido).</p></div>
+        <div class="cmd" data-copy="docker rmi mi-app:1.0"><code>docker rmi mi-app:1.0</code><p>Borra la imagen del disco.</p></div>
+        <div class="cmd danger" data-copy="docker system prune"><code>docker system prune</code><p>⚠️ Borra <b>todo</b> lo que no esté en uso: contenedores detenidos, redes e imágenes huérfanas.</p></div>
+      </div>
+
+      <h3 class="sub-h">🎼 Docker Compose</h3>
+      <p class="lead">Cuando ya no quieres memorizar flags, los escribes en un <code>docker-compose.yml</code>.</p>
+      <div class="cmds">
+        <div class="cmd" data-copy="docker compose up --build"><code>docker compose up --build</code><p>Construye y levanta todo lo definido en el archivo.</p></div>
+        <div class="cmd" data-copy="docker compose up -d"><code>docker compose up -d</code><p>Igual, pero en segundo plano.</p></div>
+        <div class="cmd" data-copy="docker compose logs -f"><code>docker compose logs -f</code><p>Logs combinados de todos los servicios.</p></div>
+        <div class="cmd" data-copy="docker compose down"><code>docker compose down</code><p>Detiene y elimina contenedores y redes del proyecto.</p></div>
+      </div>
+
+      <div class="keyidea">
+        <b>Regla mnemotécnica:</b> <code>build</code> trabaja con <b>imágenes</b>,
+        <code>run</code> crea <b>contenedores</b>, <code>exec</code> entra a uno que
+        <b>ya está corriendo</b>. Si confundes <code>run</code> con <code>exec</code>,
+        terminarás con 20 contenedores basura — muy normal al principio.
+      </div>
+    </section>
+
+    <!-- ══════════ NUBE ══════════ -->
+    <section id="modelos" class="block">
+      <span class="num">07</span>
+      <h2>¿Y esto qué tiene que ver con la nube?</h2>
+      <p class="lead">
+        Todo. El contenedor es <b>la unidad que la nube moderna espera recibir</b>.
+        Estos son los tres modelos de servicio y dónde encaja lo que acabas de hacer.
+      </p>
+      <div class="grid">
+        <div class="model">
+          <span class="tag">IaaS</span>
+          <h4>Infraestructura</h4>
+          <p>Te dan la máquina virtual vacía. Tú instalas el SO, Docker, la app y te encargas de parches y escalado.</p>
+          <small>EC2 · Compute Engine · Azure VM</small>
+        </div>
+        <div class="model highlight">
+          <span class="tag">PaaS</span>
+          <h4>Plataforma</h4>
+          <p>Entregas <b>tu contenedor</b> y la nube lo ejecuta, escala y asegura por ti. Aquí llega tu imagen.</p>
+          <small>Cloud Run · App Runner · Azure Container Apps</small>
+        </div>
+        <div class="model">
+          <span class="tag">SaaS</span>
+          <h4>Software</h4>
+          <p>Solo lo usas desde el navegador. No hay servidor ni contenedor que administrar.</p>
+          <small>Gmail · Drive · Slack</small>
+        </div>
+      </div>
+      <div class="note">
+        <b>Lo que hiciste hoy es local</b>, así que todavía no es ninguno de los tres.
+        Pero el salto a PaaS son literalmente dos comandos: <code>docker push</code>
+        y desplegar. <b>La imagen no cambia ni un byte.</b>
+      </div>
+    </section>
+
+    <!-- ══════════ RESUMEN ══════════ -->
+    <section id="lab" class="block">
+      <span class="num">08</span>
+      <h2>Lo que acabas de hacer</h2>
+      <ol class="recap">
+        <li><b>Escribiste un Dockerfile</b> — la receta para construir la imagen.</li>
+        <li><b>Construiste la imagen</b> — <code>docker build</code> empaquetó SO, servidor y tu página.</li>
+        <li><b>Corriste el contenedor</b> — un proceso Linux aislado sirviendo esto que lees.</li>
+        <li><b>Publicaste un puerto</b> — <code>8080:80</code>, por eso lo ves en el navegador.</li>
+        <li><b>Verificaste su salud</b> — el <code>/health</code> que consulta el HEALTHCHECK.</li>
+      </ol>
+      <p class="next">
+        Siguiente paso: subir esta misma imagen a un registry y desplegarla en la nube.
+        El archivo no cambia. <b>Ese es exactamente el punto.</b>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Lab 01 · Fundamentos de Cloud Computing · <span id="reloj"></span></p>
+  </footer>
+
+  <div class="toast" id="toast">Copiado ✓</div>
+  <script src="script.js"></script>
+</body>
+</html>
