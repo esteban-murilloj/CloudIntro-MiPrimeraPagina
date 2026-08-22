@@ -223,6 +223,8 @@ Destinos típicos para esta misma imagen, sin cambiar una línea:
 | Los cambios no se ven | La imagen es vieja | `docker compose up --build` |
 | `permission denied` (Linux) | Falta el grupo docker | `sudo usermod -aG docker $USER` y reinicia sesión |
 | No logro instalar Docker | Entorno local complicado | Usa [Codespaces](ENTORNOS_ONLINE.md) — no instalas nada |
+| Cloud Shell no muestra la página | Web Preview en otro puerto | Change port → **8080** |
+| Cloud Run: `failed to start and listen on the port` | Cloud Run espera el 8080; el contenedor usa el 80 | Despliega con `--port 80` ([detalle](ENTORNOS_ONLINE.md)) |
 
 Comando de emergencia (borra TODOS los contenedores detenidos):
 ```bash

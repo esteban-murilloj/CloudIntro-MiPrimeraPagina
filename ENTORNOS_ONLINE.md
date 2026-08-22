@@ -151,6 +151,53 @@ https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://git
 
 ---
 
+## 🔌 ¿80 u 8080? La confusión clásica
+
+El contenedor de este lab **siempre escucha en el puerto 80** por dentro
+(así está configurado Nginx). Lo que cambia según dónde lo corras es
+**quién pregunta y qué puerto le importa**.
+
+| Dónde | Qué configuras | Valor |
+|---|---|---|
+| Local / Codespaces | Mapeo `-p afuera:adentro` | `8080:80` |
+| Cloud Shell → Web Preview | El puerto de **la máquina** | **8080** |
+| **Cloud Run** | El puerto **del contenedor** | **80** |
+
+### La regla mental
+
+> Con `-p` mapeas **afuera : adentro**.
+> En Cloud Run **no mapeas nada**: solo declaras el de **adentro**.
+
+Por eso `8080:80` en local y `--port 80` en la nube apuntan al mismo puerto real.
+
+### ⚠️ El error que van a encontrar en Cloud Run
+
+Cloud Run envía el tráfico al puerto **8080 por defecto**. Como este contenedor
+escucha en el 80, un despliegue sin la bandera falla así:
+
+```
+The user-provided container failed to start and listen on
+the port defined by the PORT environment variable
+```
+
+La solución es una bandera:
+
+```bash
+gcloud run deploy cloudintro --source . --port 80 --allow-unauthenticated
+```
+
+### La versión "profesional" (para el Lab 04)
+
+En producción no se fija el puerto a mano: se lee la variable de entorno
+**`PORT`** que la plataforma inyecta. Es la convención de todos los PaaS
+(Cloud Run, App Runner, Heroku, Render), y hace que la imagen funcione
+en cualquier lado sin banderas.
+
+Para este lab introductorio dejamos el 80 fijo a propósito: **el mapeo
+`8080:80` se entiende mejor cuando los dos números son distintos.**
+
+---
+
 ## 🥉 Opción 3 — Killercoda (para demos sueltas)
 
 Un entorno Linux con Docker, listo en segundos, sin repositorio ni configuración.
