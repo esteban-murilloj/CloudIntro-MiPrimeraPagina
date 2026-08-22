@@ -1,7 +1,13 @@
 # Lab 01 · Tu primera app en un contenedor
 
 **Fundamentos de Cloud Computing**
-Duración estimada: 45–60 min · Requisito único: tener Docker instalado
+Duración estimada: 45–60 min
+
+[![Abrir en GitHub Codespaces](https://img.shields.io/badge/Abrir_en-Codespaces-24292e?logo=github)](https://codespaces.new/johanpina/CloudIntro?quickstart=1)
+[![Abrir en Cloud Shell](https://img.shields.io/badge/Abrir_en-Google_Cloud_Shell-4285F4?logo=googlecloud&logoColor=white)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/johanpina/CloudIntro.git&cloudshell_workspace=.)
+
+> 👆 **¿No tienes Docker instalado?** Haz clic en cualquiera de los dos botones
+> y trabaja desde el navegador, sin instalar absolutamente nada.
 
 ---
 

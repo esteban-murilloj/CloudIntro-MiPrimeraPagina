@@ -54,19 +54,19 @@ Listo. Están editando, construyendo y corriendo contenedores sin instalar nada.
 - **Se suspende solo** a los 30 min de inactividad, así que un olvido no les
   vacía la cuota.
 
-### Para que funcione, el repo debe estar en GitHub
+### El repositorio ya está listo
 
-```bash
-git init
-git add .
-git commit -m "Lab 01: landing dockerizada"
-git branch -M main
-git remote add origin https://github.com/TU-USUARIO/CloudIntro.git
-git push -u origin main
+👉 **https://github.com/johanpina/CloudIntro**
+
+Está publicado como **repository template**, así que cada estudiante hace clic en
+**Use this template → Create a new repository** y trabaja en su propia copia,
+sin permisos ni invitaciones de por medio.
+
+**Enlace directo para compartir en clase:**
+
 ```
-
-Luego, en GitHub: **Settings → General → Template repository** ✅
-Así cada estudiante hace **Use this template** y trabaja en su propia copia.
+https://github.com/johanpina/CloudIntro/generate
+```
 
 ---
 
@@ -84,7 +84,7 @@ encaja perfecto con el tema del curso y con el Lab 04 (desplegar en Cloud Run).
 1. Abrir 👉 **https://shell.cloud.google.com**
 2. Clonar el repo y entrar:
    ```bash
-   git clone https://github.com/TU-USUARIO/CloudIntro.git && cd CloudIntro
+   git clone https://github.com/johanpina/CloudIntro.git && cd CloudIntro
    ```
 3. Levantar el lab:
    ```bash
@@ -94,10 +94,10 @@ encaja perfecto con el tema del curso y con el Lab 04 (desplegar en Cloud Run).
 
 ### Enlace de un solo clic
 
-Reemplaza `TU-USUARIO` y compárteles este link: clona el repo y abre el editor solo.
+Compárteles este link: clona el repo y abre el editor automáticamente.
 
 ```
-https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/TU-USUARIO/CloudIntro.git&cloudshell_workspace=.
+https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/johanpina/CloudIntro.git&cloudshell_workspace=.
 ```
 
 ### Límites
